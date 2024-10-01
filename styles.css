@@ -1,0 +1,145 @@
+html, body {
+    margin: 0;
+    height: 100%; /* Pastikan tinggi penuh */
+}
+
+body {
+    font-family: 'Arial', sans-serif; /* Default font */
+    background: linear-gradient(to bottom, #f0e3f2, #f0e3f2, #a3d5e0); /* Gradasi merata */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Ubah menjadi flex-start agar bisa di-scroll */
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px; /* Mengurangi padding untuk responsivitas */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative; /* Tambahkan ini untuk posisi gambar */
+    width: 90%; /* Lebar maksimum 90% untuk perangkat kecil */
+    max-width: 400px; /* Lebar maksimum untuk konten */
+    min-height: 90vh; /* Minimum tinggi untuk memastikan background terlihat */
+    margin: 20px; /* Margin untuk memberi ruang */
+    overflow: auto; /* Tambahkan ini untuk mengizinkan scroll jika konten melebihi */
+}
+
+.corner-image {
+    position: absolute; /* Mengatur posisi gambar */
+    top: 10px; /* Jarak dari atas */
+    right: 10px; /* Jarak dari kanan */
+    width: 30px; /* Ukuran gambar yang lebih kecil */
+    height: auto; /* Proporsional */
+    border-radius: 5px; /* Sudut membulat jika diinginkan */
+}
+
+.header {
+    border-bottom: 2px solid #ff6f61; /* Border di bawah header */
+    padding-bottom: 15px; /* Ruang bawah */
+    margin-bottom: 15px; /* Ruang di bawah header */
+}
+
+.name {
+    font-family: 'Dancing Script', cursive; /* Menggunakan font tulisan tangan */
+    font-size: 2.5em; /* Ukuran font untuk nama */
+    color: #ff6f61; /* Warna cerah */
+    margin-bottom: 5px; /* Mengurangi margin bawah */
+}
+
+.bio {
+    font-family: 'Dancing Script', cursive; /* Menggunakan font tulisan tangan */
+    font-size: 1.5em; /* Ukuran font untuk bio */
+    color: #555;
+    margin: 0; /* Menghilangkan margin */
+}
+
+.biodata-background {
+    position: relative;
+    padding: 20px; /* Ruang dalam */
+    overflow: hidden; /* Pastikan konten tidak melampaui batas */
+    border-radius: 10px; /* Sudut membulat */
+}
+
+.biodata-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('img/12.png'); /* Gambar sebagai latar belakang */
+    background-size: cover; /* Menutup seluruh area */
+    background-position: center; /* Pusatkan gambar */
+    opacity: 0.5; /* Opasitas gambar */
+    border-radius: 10px; /* Sudut membulat */
+    z-index: 0; /* Pastikan di bawah teks */
+}
+
+.biodata {
+    position: relative; /* Pastikan teks di atas gambar */
+    color: #333; /* Warna teks */
+    z-index: 1; /* Pastikan teks di atas gambar */
+    font-family: 'Dancing Script', cursive; /* Font tulisan tangan */
+}
+
+.biodata strong {
+    color: #ff6f61; /* Warna pink untuk teks bold */
+    font-weight: bold; /* Menebalkan teks */
+    text-shadow: 0.5px 0.5px 0px black, /* Outline kanan bawah */
+                 -0.5px -0.5px 0px black, /* Outline kiri atas */
+                 0.5px -0.5px 0px black, /* Outline kanan atas */
+                 -0.5px 0.5px 0px black; /* Outline kiri bawah */
+}
+
+.links {
+    margin-top: 20px;
+}
+
+.link {
+    display: block;
+    color: #ff6f61; /* Warna link */
+    text-decoration: none;
+    font-size: 1em; /* Mengurangi ukuran font */
+    margin: 8px 0;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.link:hover {
+    color: #ff1493; /* Warna saat hover */
+    transform: scale(1.05); /* Efek sedikit membesar */
+}
+
+.welcome {
+    text-align: center;
+    margin-bottom: 20px; /* Ruang bawah */
+}
+
+.welcome h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5em;
+    color: #555;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 1em;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 80%; /* Lebar input */
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 1em;
+    color: white;
+    background-color: #ff6f61;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff1493; /* Warna saat hover */
+}

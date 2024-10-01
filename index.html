@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Ao Haru Ride Linktree</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin: 20px auto;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <audio id="background-music" loop autoplay>
+        <source src="audio/dira.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div class="welcome">
+            <h2>Hello? You wanna take a look? By the way, what's your name?</h2>
+            <form id="nameForm">
+                <input type="text" id="nameInput" placeholder="Your Name" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="profile" id="profile" style="display: none;">
+            <img src="img/12.png" alt="Pemanis" class="corner-image">
+            <div class="header">
+                <h1 class="name">Adyra Sabria</h1>
+                <p class="bio">Hi! I'm Adyra, This Is About Me!.</p>
+            </div>
+            <div class="biodata-background">
+                <div class="biodata">
+                    <p><strong>Name:</strong> Adyra Sabria</p>
+                    <p><strong>Place, Date of Birth:</strong> Cianjur, August 5, 2007</p>
+                    <p><strong>Hobbies:</strong> Watching Anime, Reading Novels, Reading AU, Cosplaying Anime</p>
+                    <p><strong>Height:</strong> 160 cm</p>
+                    <p><strong>Weight:</strong> ± 55 Kg</p>
+                    <p><strong>Religion:</strong> Islam</p>
+                    <p><strong>Blood Type:</strong> O</p>
+                    <p><strong>Favorite Food:</strong> Noodle</p>
+                    <p><strong>Favorite Drink:</strong> Caramel Ultramilk</p>
+                    <p><strong>Favorite Anime:</strong> Ao Haru Ride</p>
+                    <p><strong>Age:</strong> 17 years (2024)</p>
+                    <p><strong>Kindergarten:</strong> Ushuluddin</p>
+                    <p><strong>Elementary School:</strong> SD 1 NEGERI CIBEBER</p>
+                    <p><strong>Middle School:</strong> SMP NEGERI 1 CIBEBER</p>
+                    <p><strong>High School:</strong> SMA NEGERI 2 DEPOK</p>
+                </div>
+            </div>
+            <div class="links">
+                <a href="https://instagram.com/jayyiesgf_" class="link">My Instagram!!</a>
+                <a href="https://tiktok.com/@jayyiesgf_" class="link">My TikTok!!</a>
+            </div>
+            <div class="tic-tac-toe" style="display: none;">
+                <h2>Tic Tac Toe</h2>
+                <button class="start-button">Hei, you wanna play Tic Tac Toe?</button>
+                <div class="board" style="display: none;">
+                    <div class="cell" data-cell-index="0"></div>
+                    <div class="cell" data-cell-index="1"></div>
+                    <div class="cell" data-cell-index="2"></div>
+                    <div class="cell" data-cell-index="3"></div>
+                    <div class="cell" data-cell-index="4"></div>
+                    <div class="cell" data-cell-index="5"></div>
+                    <div class="cell" data-cell-index="6"></div>
+                    <div class="cell" data-cell-index="7"></div>
+                    <div class="cell" data-cell-index="8"></div>
+                </div>
+                <button class="reset-button">Reset Game</button>
+                <p class="status-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('nameForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('nameInput').value;
+    document.querySelector('.welcome').style.display = 'none';
+    document.getElementById('profile').style.display = 'block';
+    document.querySelector('.name').textContent = `Hello, ${name}!`;
+
+    // Memutar musik setelah pengenalan
+    const audio = document.getElementById('background-music');
+    audio.play();
+
+    // Menampilkan game Tic Tac Toe setelah pengenalan
+    document.querySelector('.tic-tac-toe').style.display = 'block';
+});
+        // Tic Tac Toe Game Logic
+        const cells = document.querySelectorAll('.cell');
+        const statusMessage = document.querySelector('.status-message');
+        const resetButton = document.querySelector('.reset-button');
+        const startButton = document.querySelector('.start-button');
+
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'X';
+        let isGameActive = false;
+
+        const winningConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+
+        function handleCellClick(event) {
+            const cell = event.target;
+            const index = cell.getAttribute('data-cell-index');
+
+            if (board[index] !== '' || !isGameActive) {
+                return;
+            }
+
+            board[index] = currentPlayer;
+            cell.innerText = currentPlayer;
+
+            checkResult();
+
+            if (isGameActive) {
+                setTimeout(() => {
+                    aiPlay();
+                }, 500);
+            }
+        }
+
+        function aiPlay() {
+            const availableCells = board.map((cell, index) => cell === '' ? index : null).filter(index => index !== null);
+            if (availableCells.length === 0) return;
+
+            const randomIndex = Math.floor(Math.random() * availableCells.length);
+            const aiMove = availableCells[randomIndex];
+
+            board[aiMove] = 'O';
+            cells[aiMove].innerText = 'O';
+            checkResult();
+        }
+
+        function checkResult() {
+            let roundWon = false;
+
+            for (let i = 0; i < winningConditions.length; i++) {
+                const [a, b, c] = winningConditions[i];
+                if (board[a] === '' || board[b] === '' || board[c] === '') {
+                    continue;
+                }
+                if (board[a] === board[b] && board[a] === board[c]) {
+                    roundWon = true;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                statusMessage.innerText = `Player ${currentPlayer} Wins!`;
+                isGameActive = false;
+                return;
+            }
+
+            if (!board.includes('')) {
+                statusMessage.innerText = 'It\'s a Tie!';
+                isGameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusMessage.innerText = `Current Player: ${currentPlayer}`;
+        }
+
+        function resetGame() {
+            board = ['', '', '', '', '', '', '', '', ''];
+            isGameActive = true;
+            currentPlayer = 'X';
+            statusMessage.innerText = `Current Player: ${currentPlayer}`;
+            cells.forEach(cell => {
+                cell.innerText = '';
+            });
+            document.querySelector('.board').style.display = 'grid'; // Menampilkan board
+        }
+
+        startButton.addEventListener('click', () => {
+            isGameActive = true;
+            currentPlayer = 'X';
+            statusMessage.innerText = `Current Player: ${currentPlayer}`;
+            startButton.style.display = 'none';
+            document.querySelector('.board').style.display = 'grid';
+            resetGame(); // Inisialisasi board saat permainan dimulai
+        });
+
+        cells.forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
+        });
+
+        resetButton.addEventListener('click', resetGame);
+    </script>
+</body>
+</html>
